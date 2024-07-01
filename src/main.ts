@@ -23,7 +23,8 @@ export class App {
       ...s,
       name: 'peanuts'
     }));
-    logSignal(this.snack);
+    logSignal(this.snack, 'name');
+    // console.log(this.snack()['name']);
   }
 
   updateUser() {
@@ -36,8 +37,12 @@ export class App {
 
 }
 
-export function logSignal<T>(sg: Signal<T>) {
-  console.log(sg());
+export function logSignal<T>(sg: Signal<T>, prop?: keyof T) {
+  if (prop) {
+    console.log(sg()[prop]);
+  } else {
+    console.log(sg());
+  }
 }
 
 bootstrapApplication(App);
