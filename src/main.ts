@@ -20,12 +20,7 @@ export class App {
 
   updateSnack() {
     updateProperty(this.snack, 'name', 'foo')
-    // this.snack.update(s => ({
-    //   ...s,
-    //   name: 'peanuts'
-    // }));
     logSignal(this.snack, 'name');
-    // console.log(this.snack()['name']);
   }
 
   updateUser() {
@@ -46,7 +41,8 @@ export function logSignal<T>(sg: Signal<T>, prop?: keyof T) {
   }
 }
 
-export function updateProperty<T>(sg: WritableSignal<T>, prop: keyof T, value: T[keyof T]) {
+export function updateProperty<T, K extends keyof T>(
+  sg: WritableSignal<T>, prop: K, value: T[K]) {
   sg.update(obj => ({
     ...obj,
     [prop]: value
