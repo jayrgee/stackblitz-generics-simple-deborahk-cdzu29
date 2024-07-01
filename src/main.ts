@@ -24,10 +24,7 @@ export class App {
   }
 
   updateUser() {
-    this.user.update(u => ({
-      ...u,
-      name: 'Frodo'
-    }));
+    updateProperty(this.user, 'name', 'bar')
     logSignal(this.user);
   }
 
