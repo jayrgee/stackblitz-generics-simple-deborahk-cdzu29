@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Signal, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import 'zone.js';
 
@@ -23,7 +23,7 @@ export class App {
       ...s,
       name: 'peanuts'
     }));
-    console.log(this.snack());
+    logSignal(this.snack);
   }
 
   updateUser() {
@@ -31,9 +31,13 @@ export class App {
       ...u,
       name: 'Frodo'
     }));
-    console.log(this.user());
+    logSignal(this.user);
   }
 
+}
+
+export function logSignal<T>(sg: Signal<T>) {
+  console.log(sg());
 }
 
 bootstrapApplication(App);
