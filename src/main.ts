@@ -1,4 +1,4 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component, Signal, WritableSignal, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import 'zone.js';
 
@@ -19,10 +19,11 @@ export class App {
   user = signal<User>(USER);
 
   updateSnack() {
-    this.snack.update(s => ({
-      ...s,
-      name: 'peanuts'
-    }));
+    updateProperty(this.snack, 'name', 'foo')
+    // this.snack.update(s => ({
+    //   ...s,
+    //   name: 'peanuts'
+    // }));
     logSignal(this.snack, 'name');
     // console.log(this.snack()['name']);
   }
@@ -43,6 +44,13 @@ export function logSignal<T>(sg: Signal<T>, prop?: keyof T) {
   } else {
     console.log(sg());
   }
+}
+
+export function updateProperty<T>(sg: WritableSignal<T>, prop: keyof T, value: T[keyof T]) {
+  sg.update(obj => ({
+    ...obj,
+    [prop]: value
+  }));
 }
 
 bootstrapApplication(App);
